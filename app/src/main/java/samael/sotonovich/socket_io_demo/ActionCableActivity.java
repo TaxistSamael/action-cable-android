@@ -34,17 +34,9 @@ public class ActionCableActivity extends AppCompatActivity {
             e.printStackTrace();
         }
 
-/*        Consumer.Options options = new Consumer.Options();*/
-
-       /* Map<String, String> headers = new HashMap();
-        headers.put("Authorization", "Bearer 34fa9c13786e5b70661ce36b1e866fec725c022697491496bb5a8fb9a0830a65");
-        options.headers = headers;*/
-
-//        Consumer consumer = ActionCable.createConsumer(uri, options);
-
         consumer = ActionCable.createConsumer(uri);
 
-        final int restaurantId = 67; //todo: check appropriate
+        final int restaurantId = 68;
         Channel restaurantChannel = new Channel("RestaurantChannel");
         restaurantChannel.addParam("restaurant_id", restaurantId);
         Subscription subscription = consumer.getSubscriptions().create(restaurantChannel);
@@ -95,8 +87,10 @@ public class ActionCableActivity extends AppCompatActivity {
     };
 
     @Override
-    protected void onStop() {
-        super.onStop();
+    protected void onDestroy() {
+        super.onDestroy();
         consumer.disconnect();
     }
+
+
 }
